@@ -16,11 +16,16 @@ public class UpgradeSystem : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         UpgradeScreen.enabled = false;
+        UpdatePrice();
+        if (thisplayer == null)
+        {
+            thisplayer = GameObject.FindGameObjectWithTag("Player").GetComponent<playerController>();
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        UpdatePrice();
+      //  UpdatePrice();
         CheckPurchase();
 	}
 
@@ -37,50 +42,56 @@ public class UpgradeSystem : MonoBehaviour {
                 }
                 else
                 {
+                    StartCoroutine("NoMoney");
+                   // UpdatePrice();
+                }
+            }
 
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                if(thisplayer.water > 0)
+                {
+                    if(thisplayer.water > thisTurret.maxAmmo - thisTurret.ammo)
+                    {
+                        thisTurret.ammo = thisTurret.maxAmmo;
+                        thisplayer.water -= thisTurret.maxAmmo - thisTurret.ammo;
+                    }
+                    else
+                    {
+                        thisplayer.water = 0;
+                        thisTurret.ammo += thisplayer.water;
+                    }
                 }
             }
         }
     }
-    float f;
-    IEnumerator FadeIn()
+
+    IEnumerator NoMoney()
     {
-        priceText.enabled = false;
-        titleText.enabled = false;
-        while (f <= 1f)
+        float timer = 2.0f;
+        while (timer > 0)
         {
-            Color c = Panel.material.color;
-            c.a = f;
-            Panel.material.color = c;
-            priceText.enabled = true;
-            titleText.enabled = true;
-            f += 0.1f;
-            yield return null;
+            print("Blah");
+            priceText.text = "Not enough money";
+            titleText.text = "";
+            timer -= 0.1f;
         }
+       
+        yield return null;
+        //UpdatePrice();
     }
 
-    IEnumerator FadeOut()
+        void Upgrade()
     {
-        priceText.enabled = false;
-        titleText.enabled = false;
-        while (f >= 0)
-        {
-            Color c = Panel.material.color;
-            c.a = f;
-            Panel.material.color = c;
-            priceText.enabled = true;
-            titleText.enabled = true;
-            f += 0.1f;
-            yield return null;
-        }
-    }
-
-    void Upgrade()
-    {
-        print("Upgrading");
+      //  print("Upgrading");
+        thisplayer.money -= cost;
+        level++;
+        cost *= 2;
+        UpdatePrice();
     }
     void UpdatePrice()
     {
+      //  print("UpdatePrice");
         titleText.text = "Turret Level " + level;
         priceText.text = "Upgrade: $" + cost;
     }
@@ -89,7 +100,8 @@ public class UpgradeSystem : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-       //     StopCoroutine("FadeOut");
+            UpdatePrice();
+            //     StopCoroutine("FadeOut");
             playerPresent = true;
             UpgradeScreen.enabled = true;
           //  StartCoroutine("FadeIn");

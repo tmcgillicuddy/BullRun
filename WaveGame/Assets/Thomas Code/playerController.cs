@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour {
     public Camera mainCamera;
     CursorLockMode wantedMode = CursorLockMode.Locked;
 
+    public int water;
     public int money;
 	// Use this for initialization
 	void Start () {
