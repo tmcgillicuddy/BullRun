@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Observer : MonoBehaviour {
     public int baseScore, totalScore, waveEnemies;
+    public enemyManager spawnSystem;
+    public KillTracker scoreBoard;
+
+    public int Red, Blue;
+
+    public int Gentleman;
 	// Use this for initialization
 	void Start () {
 		
@@ -32,6 +38,7 @@ public class Observer : MonoBehaviour {
         if(type == "Red")
         {
             totalScore += baseScore * 1;
+            Red++;
         }
         else if (type == "Blue")
         {
@@ -51,5 +58,16 @@ public class Observer : MonoBehaviour {
         }
 
         waveEnemies--;
+        scoreBoard.UpdateKills();
+    }
+
+    public void DeathTracker(string attachtment)
+    {
+        if(attachtment == "Gentleman")
+        {
+            Gentleman++;
+        }
+
+        scoreBoard.UpdateKills();
     }
 }

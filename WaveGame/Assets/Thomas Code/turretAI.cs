@@ -18,8 +18,6 @@ public class turretAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         SetTurretRotation();
-       
-
     }
 
     void SetTurretRotation()
