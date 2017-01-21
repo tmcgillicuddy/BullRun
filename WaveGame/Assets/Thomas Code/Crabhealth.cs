@@ -30,4 +30,14 @@ public class Crabhealth : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("Hit something");
+        if(collision.gameObject.tag == "Mop")
+        {
+            print("Hit Mop");
+            takeDamage(10);
+        }
+    }
 }
