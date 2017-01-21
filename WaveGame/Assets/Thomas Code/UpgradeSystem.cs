@@ -46,6 +46,23 @@ public class UpgradeSystem : MonoBehaviour {
                    // UpdatePrice();
                 }
             }
+
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                if(thisplayer.water > 0)
+                {
+                    if(thisplayer.water > thisTurret.maxAmmo - thisTurret.ammo)
+                    {
+                        thisTurret.ammo = thisTurret.maxAmmo;
+                        thisplayer.water -= thisTurret.maxAmmo - thisTurret.ammo;
+                    }
+                    else
+                    {
+                        thisplayer.water = 0;
+                        thisTurret.ammo += thisplayer.water;
+                    }
+                }
+            }
         }
     }
 
