@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour {
+public class lookAt : MonoBehaviour {
+
+	public Transform target;
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		getInput ();	
-	}
-
-	void getInput()
+	void Update () 
 	{
-		if(getInput.GetKeyDown
-	}
+		if (target != null) 
+		{
+			transform.LookAt (target);
+		}
 
+	}
 }
