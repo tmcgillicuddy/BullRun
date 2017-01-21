@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class playerController : MonoBehaviour {
-    public float speed;
+    public float speed, mouseSpeed;
     public Camera mainCamera;
+    CursorLockMode wantedMode = CursorLockMode.Locked;
+
+    public int money;
 	// Use this for initialization
 	void Start () {
         Cursor.visible = false;
+        Cursor.lockState = wantedMode;
     }
 	
 	// Update is called once per frame
@@ -34,8 +38,14 @@ public class playerController : MonoBehaviour {
             this.transform.Translate(new Vector3(-speed * Time.deltaTime, 0,0));
         }
 
-        mainCamera.transform.Rotate(-Input.GetAxis("Mouse Y"),0 ,0 );
-        this.transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
+        mainCamera.transform.Rotate(-Input.GetAxis("Mouse Y")*mouseSpeed,0 ,0 );
+        this.transform.Rotate(0, Input.GetAxis("Mouse X")*mouseSpeed, 0);
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            print("Attacking");
+        }
+
     }
 
 }
