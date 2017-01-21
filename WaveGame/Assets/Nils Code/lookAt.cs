@@ -8,7 +8,10 @@ public class lookAt : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		if (target == null)
+		{
+			target = GameObject.FindGameObjectWithTag ("Player").transform;
+		}
 	}
 	
 	// Update is called once per frame
