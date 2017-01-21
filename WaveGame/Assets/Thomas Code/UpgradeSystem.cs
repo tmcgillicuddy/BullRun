@@ -83,7 +83,7 @@ public class UpgradeSystem : MonoBehaviour {
 
         void Upgrade()
     {
-        print("Upgrading");
+      //  print("Upgrading");
         thisplayer.money -= cost;
         level++;
         cost *= 2;
@@ -91,7 +91,7 @@ public class UpgradeSystem : MonoBehaviour {
     }
     void UpdatePrice()
     {
-        print("UpdatePrice");
+      //  print("UpdatePrice");
         titleText.text = "Turret Level " + level;
         priceText.text = "Upgrade: $" + cost;
     }
