@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemyMovement : MonoBehaviour {
 
-	public float speed;
+	public float xSpeed, ySpeed, zSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +13,11 @@ public class enemyMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float translation = Time.deltaTime * speed;
-		transform.Translate (0, translation, 0);
+		float xTranslation = Time.deltaTime * xSpeed;
+		transform.Translate (xTranslation, 0, 0, Space.World);
+		float yTranslation = Time.deltaTime * ySpeed;
+		transform.Translate (0, yTranslation, 0, Space.World);
+		float zTranslation = Time.deltaTime * zSpeed;
+		transform.Translate (0, 0, zTranslation, Space.World);
 	}
 }
