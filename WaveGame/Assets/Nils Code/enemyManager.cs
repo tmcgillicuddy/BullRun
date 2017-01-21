@@ -5,7 +5,7 @@ using UnityEngine;
 public class enemyManager : MonoBehaviour {
 
 	public GameObject enemy;
-    private int totalSpawn, spawned;
+    public int totalSpawn, spawned;
 	private float frequency = 1;
     public bool downTime, spawning;
 	private int wave = 0;
@@ -46,7 +46,11 @@ public class enemyManager : MonoBehaviour {
         {
             if(spawned < totalSpawn)
             {
-
+                for(int i =0; i < spawnPoints.Count; i++)
+                {
+                    Instantiate(enemy, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f),0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                    spawned++;
+                }
             }
             else
             {
