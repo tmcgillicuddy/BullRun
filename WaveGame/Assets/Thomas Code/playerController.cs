@@ -7,6 +7,9 @@ public class playerController : MonoBehaviour {
     public Camera mainCamera;
     CursorLockMode wantedMode = CursorLockMode.Locked;
 
+    public Animator playerAnim;
+    public bool attacking;
+
     public int water;
     public int money;
 	// Use this for initialization
@@ -44,7 +47,9 @@ public class playerController : MonoBehaviour {
 
         if(Input.GetMouseButtonDown(0))
         {
+            playerAnim.SetBool("Attack", true);
             print("Attacking");
+            playerAnim.SetBool("Attack", false);
         }
 
     }
