@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour {
+public class enemyMovement : MonoBehaviour {
+
+	public float speed;
 
 	// Use this for initialization
 	void Start () {
@@ -11,12 +13,7 @@ public class playerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		getInput ();	
+		float translation = Time.deltaTime * speed;
+		transform.Translate (0, translation, 0);
 	}
-
-	void getInput()
-	{
-		if(getInput.GetKeyDown
-	}
-
 }
