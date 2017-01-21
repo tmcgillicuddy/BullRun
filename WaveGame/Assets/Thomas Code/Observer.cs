@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Observer : MonoBehaviour {
-    public int baseScore, totalScore;
+    public int baseScore, totalScore, waveEnemies;
 	// Use this for initialization
 	void Start () {
 		
@@ -22,6 +22,11 @@ public class Observer : MonoBehaviour {
         }
     }
 
+    public void setEnemies(int num)
+    {
+        waveEnemies = num;
+    }
+
     public void AddScore(string type)
     {
         if(type == "Red")
@@ -34,15 +39,17 @@ public class Observer : MonoBehaviour {
         }
         else if (type == "Green")
         {
-            totalScore += baseScore * 1.5f;
+            totalScore += (int)(baseScore * 1.5f);
         }
         else if (type == "Blue")
         {
-            totalScore += baseScore * 2;
+            totalScore += baseScore * 3;
         }
         else if (type == "Blue")
         {
-            totalScore += baseScore * 2;
+            totalScore += baseScore * 10;
         }
+
+        waveEnemies--;
     }
 }
