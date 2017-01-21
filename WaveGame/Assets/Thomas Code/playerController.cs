@@ -6,6 +6,8 @@ public class playerController : MonoBehaviour {
     public float speed, mouseSpeed;
     public Camera mainCamera;
     CursorLockMode wantedMode = CursorLockMode.Locked;
+
+    public int money;
 	// Use this for initialization
 	void Start () {
         Cursor.visible = false;
