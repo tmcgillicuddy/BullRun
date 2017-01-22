@@ -12,6 +12,7 @@ public class enemyManager : MonoBehaviour {
     public List<Transform> spawnPoints;
     public Transform spawnParent;
 
+    public Transform[] heliSpawns;
     public Observer god;
 
 	// Use this for initialization
@@ -60,10 +61,13 @@ public class enemyManager : MonoBehaviour {
 
     void KillUnits()
     {
+        SpawnHeli();
+        /*
         foreach(Transform child in spawnParent)
         {
             child.GetComponent<Crabhealth>().takeDamage(child.GetComponent<Crabhealth>().health);
         }
+        */
     }
 
     int inGame;
@@ -129,8 +133,8 @@ public class enemyManager : MonoBehaviour {
 
                         if (spawned % 25 == 0)
                         {
-                            GameObject temp = Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
+                            SpawnHeli();
+                            spawned += 4;
                         }
                         else if (spawned % 10 == 0)
                         {
@@ -163,8 +167,8 @@ public class enemyManager : MonoBehaviour {
                         }
                         else if (spawned % 25 == 0)
                         {
-                            GameObject temp = Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
+                            SpawnHeli();
+                            spawned += 4;
                         }
                         else if (spawned % 10 == 0)
                         {
@@ -191,5 +195,14 @@ public class enemyManager : MonoBehaviour {
                 spawning = false;
             }
         }
+    }
+
+    public Transform[] heliTargets;
+    void SpawnHeli()
+    {
+        int x = Random.Range(0, 3);
+        GameObject temp = Instantiate(green, heliSpawns[x].position, Quaternion.identity) as GameObject;
+        temp.GetComponent<GreenHeliAI>().target = heliTargets[x];
+        temp.GetComponent<GreenHeliAI>().boss = this;
     }
 }

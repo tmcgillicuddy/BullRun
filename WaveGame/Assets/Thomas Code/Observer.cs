@@ -7,8 +7,9 @@ public class Observer : MonoBehaviour {
     public enemyManager spawnSystem;
     public KillTracker scoreBoard;
     public PlayerUI thisPlayer;
+    public GameObject[] words;
 
-    public int Red, Blue;
+    public int Red, Blue, Gold, Green, Rainbow;
 
     public int Gentleman;
 	// Use this for initialization
@@ -20,7 +21,29 @@ public class Observer : MonoBehaviour {
 	void Update () {
         CheckEscape();
 	}
+    public int wordsAssigned;
+  public GameObject returnWord()
+    {
+        GameObject temp;
+        switch(wordsAssigned%3)
+        {
+            case 0:
+                temp = words[0];
+                break;
+            case 2:
+                temp = words[1];
+                break;
 
+            default:
+                temp = words[2];
+                    break;
+
+
+        }
+        wordsAssigned++;
+        return temp;
+
+    }
 
     void CheckEscape()
     {
@@ -45,18 +68,22 @@ public class Observer : MonoBehaviour {
         else if (type == "Blue")
         {
             totalScore += baseScore * 2;
+            Blue++;
         }
         else if (type == "Green")
         {
             totalScore += (int)(baseScore * 1.5f);
+            Green++;
         }
         else if (type == "Gold")
         {
             totalScore += baseScore * 3;
+            Gold++;
         }
         else if (type == "Rainbow")
         {
             totalScore += baseScore * 10;
+            Rainbow++;
         }
 
         waveEnemies--;

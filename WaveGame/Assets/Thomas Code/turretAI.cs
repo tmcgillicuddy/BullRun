@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class turretAI : MonoBehaviour {
+public class turretAI : MonoBehaviour
+{
     public GameObject target;
     public GameObject bullet;
     public GameObject TurretHead;
-    public Transform Muzzel;
+    public Transform[] Muzzels;
     public int ammo, maxAmmo;
     public float bulletSpeed;
     public int bulletDamage;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         SetTurretRotation();
     }
 
     void SetTurretRotation()
     {
-        if(target == null)
+        if (target == null)
         {
             TurretHead.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
@@ -31,7 +34,7 @@ public class turretAI : MonoBehaviour {
             TurretHead.transform.LookAt(target.transform);
             TurretHead.transform.Rotate(0, 90, 0);
             Fire();
-            
+
         }
     }
 
@@ -39,11 +42,11 @@ public class turretAI : MonoBehaviour {
     public float timer, rof;
     void Fire()
     {
-        if(timer <= 0 && ammo >0)
+        if (timer <= 0 && ammo > 0)
         {
-          //  print("Fire");
+            //  print("Fire");
             timer += rof;
-            GameObject temp = Instantiate(bullet, Muzzel.position, Muzzel.rotation) as GameObject;
+            GameObject temp = Instantiate(bullet, Muzzels[0].position, Muzzels[0].rotation) as GameObject;
             temp.GetComponent<Bullet>().damage = bulletDamage;
             temp.GetComponent<Rigidbody>().velocity = temp.transform.forward * bulletSpeed;
         }
@@ -56,7 +59,7 @@ public class turretAI : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Bad Guy" && target ==null)
+        if (other.tag == "Bad Guy" && target == null)
         {
             target = other.gameObject;
         }
@@ -64,14 +67,14 @@ public class turretAI : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if(target == null && other.tag == "Bad Guy")
+        if (target == null && other.tag == "Bad Guy")
         {
             target = other.gameObject;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject == target)
+        if (other.gameObject == target)
         {
             target = null;
         }
