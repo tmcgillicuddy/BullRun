@@ -11,11 +11,6 @@ public class UpgradeSystem : MonoBehaviour {
     public playerController thisplayer;
     public Image Panel;
 
-    public GameObject upgradeTwo;
-    public GameObject upgradeThree, upgradeThree2;
-
-
-    public Transform UpgradeSpot1, UpgradeSpot2;
 
     public int level, cost;
 	// Use this for initialization
@@ -96,27 +91,9 @@ public class UpgradeSystem : MonoBehaviour {
 
         if(level == 2)
         {
-           GameObject temp = Instantiate(upgradeTwo, UpgradeSpot1.position, Quaternion.identity) as GameObject;
-            temp.transform.Rotate(0, 90, 0);
-            temp.transform.parent = UpgradeSpot1;
-            thisTurret.rof = thisTurret.rof / 3;
 
-            thisTurret.Muzzels[1] = temp.transform.Find("Muzzel1").transform;
-            thisTurret.Muzzels[2] = temp.transform.Find("Muzzel2").transform;
+
         }
-        else if(level == 3)
-        {
-            GameObject temp = Instantiate(upgradeTwo, UpgradeSpot1.position, Quaternion.identity) as GameObject;
-            temp.transform.Rotate(0, 90, 0);
-            temp.transform.parent = UpgradeSpot1;
-
-            thisTurret.Muzzels[1] = temp.transform.Find("Muzzel3").transform;
-            thisTurret.Muzzels[2] = temp.transform.Find("Muzzel4").transform;
-        }
-
-
-
-        thisTurret.currentLevel++;
     }
     void UpdatePrice()
     {

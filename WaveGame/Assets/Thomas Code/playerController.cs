@@ -53,7 +53,7 @@ public class playerController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             playerAnim.SetBool("Attack", true);
-
+            print("Attacking");
             
         }
 
