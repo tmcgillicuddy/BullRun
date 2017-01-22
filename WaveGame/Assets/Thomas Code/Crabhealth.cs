@@ -9,10 +9,19 @@ public class Crabhealth : MonoBehaviour {
     public string attachment;
     public enemyMovement stuff;
    public  GameObject paraChute;
+    public AudioSource mouth; 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        dead = false;
+		if(manager == null)
+        {
+            manager = GameObject.Find("Global Systems").GetComponent<Observer>();
+        }
+        if (stuff == null)
+        {
+            stuff = this.GetComponent<enemyMovement>();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -23,15 +32,45 @@ public class Crabhealth : MonoBehaviour {
                
 	}
 
+    bool dead;
+
     public void takeDamage(int damage)
     {
-        health -= damage;
-        if(health <= 0)
+        if (dead == false)
         {
-            manager.AddScore(type);
-            Destroy(this.gameObject);
-           
+            health -= damage;
+            if (health <= 0)
+            {
+
+                stuff.canMove = false;
+                manager.AddScore(type);
+                if (type == "Escaped")
+                {
+                    Destroy(this.gameObject);
+
+                }
+                else
+                {
+
+                    mouth.Stop();
+                    mouth.clip = manager.returnDeath(type); 
+                    mouth.Play();
+                    mouth.loop = false;
+                    StartCoroutine("waitForCry");
+                   
+                }
+                dead = true;
+
+            }
         }
+    }
+
+    IEnumerator waitForCry()
+    {
+        print("in here");
+        yield return new WaitForSeconds(mouth.clip.length);
+        Destroy(this.gameObject);
+
     }
 
     void SpawnWord()
@@ -42,10 +81,10 @@ public class Crabhealth : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        //print("Hit something");
+    
         if(collision.gameObject.tag == "AttackMop")
         {
-            takeDamage(10);
+            takeDamage(100);
             int test = Random.Range(1, 100);
             if (test > 80)
             {
@@ -66,6 +105,7 @@ public class Crabhealth : MonoBehaviour {
                 GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 stuff.canMove = true;
                 Destroy(paraChute);
+                this.gameObject.tag = "Bad Guy";
             }
         }
     }

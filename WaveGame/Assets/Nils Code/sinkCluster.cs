@@ -31,10 +31,9 @@ public class sinkCluster : MonoBehaviour {
 		{
             if (health > 0)
             {
+                Destroy(collision.gameObject);
                 Destroy(sinks[health - 1]);
                 health--;
-
-
                 manager.updateHealth();
             }
 		}

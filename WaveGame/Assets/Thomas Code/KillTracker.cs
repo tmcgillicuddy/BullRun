@@ -32,6 +32,6 @@ public class KillTracker : MonoBehaviour {
         TypeNums[1].text = god.Gentleman.ToString();
         TypeNums[2].text = god.Gentleman.ToString();
         TypeNums[3].text = god.Gentleman.ToString();
-
+        TypeNums[4].text = god.Escaped.ToString();
     }
 }
