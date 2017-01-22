@@ -7,6 +7,7 @@ public class Observer : MonoBehaviour {
     public enemyManager spawnSystem;
     public KillTracker scoreBoard;
     public PlayerUI thisPlayer;
+    public GameObject[] words;
 
     public int Red, Blue, Gold, Green, Rainbow;
 
@@ -20,7 +21,29 @@ public class Observer : MonoBehaviour {
 	void Update () {
         CheckEscape();
 	}
+    public int wordsAssigned;
+  public GameObject returnWord()
+    {
+        GameObject temp;
+        switch(wordsAssigned%3)
+        {
+            case 0:
+                temp = words[0];
+                break;
+            case 2:
+                temp = words[1];
+                break;
 
+            default:
+                temp = words[2];
+                    break;
+
+
+        }
+        wordsAssigned++;
+        return temp;
+
+    }
 
     void CheckEscape()
     {
