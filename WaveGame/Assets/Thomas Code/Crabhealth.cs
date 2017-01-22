@@ -55,6 +55,7 @@ public class Crabhealth : MonoBehaviour {
                     mouth.Stop();
                     mouth.clip = manager.returnDeath(type); 
                     mouth.Play();
+                    mouth.volume = .5f;
                     mouth.loop = false;
                     StartCoroutine("waitForCry");
                    
@@ -66,8 +67,7 @@ public class Crabhealth : MonoBehaviour {
     }
 
     IEnumerator waitForCry()
-    {
-        print("in here");
+    { 
         yield return new WaitForSeconds(mouth.clip.length);
         Destroy(this.gameObject);
 

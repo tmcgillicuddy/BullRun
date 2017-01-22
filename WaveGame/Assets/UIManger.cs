@@ -28,6 +28,7 @@ public class UIManger : MonoBehaviour {
 
     public void returnToMain()
     {
+        print("Doing Shit");
         Main.enabled = true;
         Credits.enabled = false;
         wall.transform.position = new Vector3(0, -100, 19);

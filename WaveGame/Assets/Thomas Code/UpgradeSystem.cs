@@ -87,6 +87,7 @@ public class UpgradeSystem : MonoBehaviour
     {
         //  print("Upgrading");
         thisplayer.money -= cost;
+        thisplayer.thisUI.UpdateMoney();
         level++;
         cost *= 2;
         UpdatePrice();

@@ -62,7 +62,7 @@ public class enemyManager : MonoBehaviour
     {
         downTime = true;
         wave++;
-        //totalSpawn = 150;
+        totalSpawn = totalSpawn + 100;
         spawned = 0;
         timer = waveDownTime;
     }
@@ -80,6 +80,8 @@ public class enemyManager : MonoBehaviour
         
     }
 
+    float height = .3f;
+
     void SpawnWave()
     {
         if (spawning == true)
@@ -92,7 +94,7 @@ public class enemyManager : MonoBehaviour
                     {
                         if (spawned < totalSpawn)
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                             spawned++;
                         }
@@ -108,12 +110,12 @@ public class enemyManager : MonoBehaviour
                     {
                         if (spawned % 5 == 0)
                         {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         spawned++;
@@ -125,17 +127,17 @@ public class enemyManager : MonoBehaviour
                     {
                         if (spawned % 10 == 0)
                         {
-                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 5 == 0)
                         {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
 
                         }
@@ -154,17 +156,17 @@ public class enemyManager : MonoBehaviour
                         }
                         else if (spawned % 10 == 0)
                         {
-                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 5 == 0)
                         {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
 
@@ -178,7 +180,7 @@ public class enemyManager : MonoBehaviour
                         spawned++;
                         if (spawned % 100 == 0)
                         {
-                            GameObject temp = Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 25 == 0)
@@ -188,17 +190,17 @@ public class enemyManager : MonoBehaviour
                         }
                         else if (spawned % 10 == 0)
                         {
-                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 5 == 0)
                         {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }
                         spawned++;
@@ -219,7 +221,7 @@ public class enemyManager : MonoBehaviour
     void SpawnHeli()
     {
         int x = Random.Range(0, 3);
-        GameObject temp = Instantiate(green, heliSpawns[x].position, Quaternion.identity) as GameObject;
+        GameObject temp = Instantiate(green, heliSpawns[x].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
         temp.GetComponent<GreenHeliAI>().target = heliTargets[x];
         temp.GetComponent<GreenHeliAI>().boss = this;
     }
