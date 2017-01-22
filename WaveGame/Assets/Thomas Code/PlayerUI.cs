@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour {
     public enemyManager waveInfo;
+    public Observer god;
 
-    public Text countDownTimer;
+    public Text countDownTimer, scoreCounter;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +18,14 @@ public class PlayerUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         UpdateTimer();
+
 	}
+
+
+    public void UpdateScore()
+    {
+        scoreCounter.text = "Score: " + god.totalScore.ToString();
+    }
 
     void UpdateTimer()
     {
