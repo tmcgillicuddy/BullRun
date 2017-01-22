@@ -6,6 +6,7 @@ public class Crabhealth : MonoBehaviour {
     public int health;
     public Observer manager;
     public string type;
+    public string attachment;
 	// Use this for initialization
 	void Start () {
 		
@@ -25,9 +26,17 @@ public class Crabhealth : MonoBehaviour {
         health -= damage;
         if(health <= 0)
         {
-            print("Died");
             manager.AddScore(type);
             Destroy(this.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //print("Hit something");
+        if(collision.gameObject.tag == "Mop")
+        {
+            takeDamage(10);
         }
     }
 }
