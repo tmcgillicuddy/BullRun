@@ -20,6 +20,7 @@ public class Observer : MonoBehaviour {
         CheckEscape();
 	}
 
+
     void CheckEscape()
     {
         if(Input.GetKey(KeyCode.Escape))
@@ -59,6 +60,12 @@ public class Observer : MonoBehaviour {
 
         waveEnemies--;
         scoreBoard.UpdateKills();
+
+        if(waveEnemies == 0)
+        {
+            print("No more bad guys");
+            spawnSystem.downTime = true;
+        }
     }
 
     public void DeathTracker(string attachtment)
