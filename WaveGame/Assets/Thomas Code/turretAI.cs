@@ -18,8 +18,6 @@ public class turretAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         SetTurretRotation();
-       
-
     }
 
     void SetTurretRotation()
@@ -63,6 +61,13 @@ public class turretAI : MonoBehaviour {
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(target == null && other.tag == "Bad Guy")
+        {
+            target = other.gameObject;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if(other.gameObject == target)
