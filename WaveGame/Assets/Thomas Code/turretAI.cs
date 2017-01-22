@@ -6,7 +6,7 @@ public class turretAI : MonoBehaviour {
     public GameObject target;
     public GameObject bullet;
     public GameObject TurretHead;
-    public Transform[] Muzzels;
+    public Transform Muzzel;
     public int ammo, maxAmmo;
     public float bulletSpeed;
     public int bulletDamage;
@@ -43,7 +43,7 @@ public class turretAI : MonoBehaviour {
         {
           //  print("Fire");
             timer += rof;
-            GameObject temp = Instantiate(bullet, Muzzels[0].position, Muzzels[0].rotation) as GameObject;
+            GameObject temp = Instantiate(bullet, Muzzel.position, Muzzel.rotation) as GameObject;
             temp.GetComponent<Bullet>().damage = bulletDamage;
             temp.GetComponent<Rigidbody>().velocity = temp.transform.forward * bulletSpeed;
         }

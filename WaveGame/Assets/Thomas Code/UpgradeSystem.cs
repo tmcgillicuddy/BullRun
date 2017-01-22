@@ -11,9 +11,7 @@ public class UpgradeSystem : MonoBehaviour {
     public playerController thisplayer;
     public Image Panel;
 
-    public Transform UpgradeSpot1, UpgradeSpot2;
 
-    public GameObject upgrade1, upgrade2;
     public int level, cost;
 	// Use this for initialization
 	void Start () {
@@ -68,6 +66,21 @@ public class UpgradeSystem : MonoBehaviour {
         }
     }
 
+    IEnumerator NoMoney()
+    {
+        float timer = 2.0f;
+        while (timer > 0)
+        {
+            print("Blah");
+            priceText.text = "Not enough money";
+            titleText.text = "";
+            timer -= 0.1f;
+        }
+       
+        yield return null;
+        //UpdatePrice();
+    }
+
         void Upgrade()
     {
       //  print("Upgrading");
@@ -78,17 +91,7 @@ public class UpgradeSystem : MonoBehaviour {
 
         if(level == 2)
         {
-            GameObject temp = Instantiate(upgrade1, UpgradeSpot1.position, Quaternion.identity) as GameObject;
-            temp.transform.Rotate(0,90,0);
-            temp.transform.parent = UpgradeSpot1;
 
-            thisTurret.Muzzels[1] = temp.transform.Find("Muzzel1");
-            thisTurret.Muzzels[2] = temp.transform.Find("Muzzel2");
-            thisTurret.rof = thisTurret.rof / 3;
-
-        }
-        else
-        {
 
         }
     }
