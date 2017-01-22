@@ -81,4 +81,4 @@ $RECYCLE.BIN/
 *.lnk
 
 #exclude everything
-C:\Users\thomas.mcgillicuddy\Documents\GitHub\BullRun\WaveGame\Library
+WaveGame\Library
