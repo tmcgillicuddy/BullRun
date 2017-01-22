@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Observer : MonoBehaviour {
-    public int baseScore, totalScore, waveEnemies;
+
     public enemyManager spawnSystem;
     public KillTracker scoreBoard;
-    public PlayerUI thisPlayer;
+    public playerController thisPlayer;
     public GameObject[] words;
+    public Camera LoseCamera;
 
+
+    public int baseScore, totalScore, waveEnemies, baseMoney;
     public int Red, Blue, Gold, Green, Rainbow;
-
     public int Gentleman;
+
 	// Use this for initialization
 	void Start () {
-		
+        LoseCamera.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -58,36 +61,66 @@ public class Observer : MonoBehaviour {
         waveEnemies = num;
     }
 
+    public void LoseScreen()
+    {
+        thisPlayer.canMove = false;
+        spawnSystem.FreezeAllUnits();
+        for (int i = 0; i < 3; i++)
+        {
+          //  thisPlayer.thisUI.turretStatus[i].isFrozen = true;
+        }
+
+        thisPlayer.mainCamera.enabled = false;
+        LoseCamera.enabled = true;
+
+        LoseCamera.GetComponent<Lose_Screen_Options>().loseMessage.enabled = true;
+
+        Destroy(thisPlayer.gameObject);
+
+    }
+
     public void AddScore(string type)
     {
         if(type == "Red")
         {
             totalScore += baseScore * 1;
+            thisPlayer.money += baseMoney * 1;
             Red++;
         }
         else if (type == "Blue")
         {
             totalScore += baseScore * 2;
+            thisPlayer.money += baseMoney * 2;
             Blue++;
         }
         else if (type == "Green")
         {
             totalScore += (int)(baseScore * 1.5f);
+            thisPlayer.money += (int)(baseMoney * 1.5f);
             Green++;
         }
         else if (type == "Gold")
         {
             totalScore += baseScore * 3;
+            thisPlayer.money += baseMoney * 3;
             Gold++;
         }
         else if (type == "Rainbow")
         {
             totalScore += baseScore * 10;
+            thisPlayer.money += baseMoney * 10;
             Rainbow++;
         }
-
+        else if(type == "Escaped")
+        {
+            print("Hit the wall");
+        }
+        else
+        {
+            print("Something else took damage");
+        }
         waveEnemies--;
-        scoreBoard.UpdateKills();
+      
 
         if(waveEnemies == 0)
         {
@@ -95,7 +128,9 @@ public class Observer : MonoBehaviour {
             spawnSystem.NextWaveSetup();
         }
 
-        thisPlayer.UpdateScore();
+        thisPlayer.thisUI.UpdateScore();
+        thisPlayer.thisUI.UpdateMoney();
+        scoreBoard.UpdateKills();
     }
 
     public void DeathTracker(string attachtment)

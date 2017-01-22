@@ -11,10 +11,12 @@ public class turretAI : MonoBehaviour
     public int ammo, maxAmmo;
     public float bulletSpeed;
     public int bulletDamage;
+
+    public int currentLevel;
     // Use this for initialization
     void Start()
     {
-
+        isFrozen = false;
     }
 
     // Update is called once per frame
@@ -23,32 +25,49 @@ public class turretAI : MonoBehaviour
         SetTurretRotation();
     }
 
+    public bool isFrozen;
     void SetTurretRotation()
     {
-        if (target == null)
+        if (isFrozen == false)
         {
-            TurretHead.transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
-        else
-        {
-            TurretHead.transform.LookAt(target.transform);
-            TurretHead.transform.Rotate(0, 90, 0);
-            Fire();
+            if (target == null)
+            {
+                TurretHead.transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
+            else
+            {
+                TurretHead.transform.LookAt(target.transform);
+                TurretHead.transform.Rotate(0, 90, 0);
+                Fire();
 
+            }
         }
     }
 
 
     public float timer, rof;
+    int firedBullets;
     void Fire()
     {
         if (timer <= 0 && ammo > 0)
         {
             //  print("Fire");
-            timer += rof;
-            GameObject temp = Instantiate(bullet, Muzzels[0].position, Muzzels[0].rotation) as GameObject;
-            temp.GetComponent<Bullet>().damage = bulletDamage;
-            temp.GetComponent<Rigidbody>().velocity = temp.transform.forward * bulletSpeed;
+            if (currentLevel > 1)
+            {
+                timer += rof;
+                GameObject temp = Instantiate(bullet, Muzzels[firedBullets%3].position, Muzzels[0].rotation) as GameObject;
+                temp.GetComponent<Bullet>().damage = bulletDamage;
+                temp.GetComponent<Rigidbody>().velocity = temp.transform.forward * bulletSpeed;
+                firedBullets++;
+            }
+            else
+            {
+                timer += rof;
+                GameObject temp = Instantiate(bullet, Muzzels[0].position, Muzzels[0].rotation) as GameObject;
+                temp.GetComponent<Bullet>().damage = bulletDamage;
+                temp.GetComponent<Rigidbody>().velocity = temp.transform.forward * bulletSpeed;
+            }
+            ammo--;
         }
         else
         {
