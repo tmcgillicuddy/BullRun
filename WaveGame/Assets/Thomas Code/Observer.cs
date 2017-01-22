@@ -8,7 +8,7 @@ public class Observer : MonoBehaviour {
     public KillTracker scoreBoard;
     public PlayerUI thisPlayer;
 
-    public int Red, Blue;
+    public int Red, Blue, Gold, Green, Rainbow;
 
     public int Gentleman;
 	// Use this for initialization
@@ -45,18 +45,22 @@ public class Observer : MonoBehaviour {
         else if (type == "Blue")
         {
             totalScore += baseScore * 2;
+            Blue++;
         }
         else if (type == "Green")
         {
             totalScore += (int)(baseScore * 1.5f);
+            Green++;
         }
         else if (type == "Gold")
         {
             totalScore += baseScore * 3;
+            Gold++;
         }
         else if (type == "Rainbow")
         {
             totalScore += baseScore * 10;
+            Rainbow++;
         }
 
         waveEnemies--;

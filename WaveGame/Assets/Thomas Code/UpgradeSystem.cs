@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeSystem : MonoBehaviour {
+public class UpgradeSystem : MonoBehaviour
+{
     public bool playerPresent;
     public turretAI thisTurret;
     public Canvas UpgradeScreen;
@@ -11,10 +12,13 @@ public class UpgradeSystem : MonoBehaviour {
     public playerController thisplayer;
     public Image Panel;
 
+    public Transform UpgradeSpot1, UpgradeSpot2;
 
+    public GameObject upgrade1, upgrade2;
     public int level, cost;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         UpgradeScreen.enabled = false;
         UpdatePrice();
         if (thisplayer == null)
@@ -22,36 +26,37 @@ public class UpgradeSystem : MonoBehaviour {
             thisplayer = GameObject.FindGameObjectWithTag("Player").GetComponent<playerController>();
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-      //  UpdatePrice();
+
+    // Update is called once per frame
+    void Update()
+    {
+        //  UpdatePrice();
         CheckPurchase();
-	}
+    }
 
 
     void CheckPurchase()
     {
-        if(playerPresent)
+        if (playerPresent)
         {
-            if(Input.GetKeyDown(KeyCode.E) && level < 3)
+            if (Input.GetKeyDown(KeyCode.E) && level < 3)
             {
-                if(thisplayer.money >= cost)
+                if (thisplayer.money >= cost)
                 {
                     Upgrade();
                 }
                 else
                 {
                     StartCoroutine("NoMoney");
-                   // UpdatePrice();
+                    // UpdatePrice();
                 }
             }
 
-            if(Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                if(thisplayer.water > 0)
+                if (thisplayer.water > 0)
                 {
-                    if(thisplayer.water > thisTurret.maxAmmo - thisTurret.ammo)
+                    if (thisplayer.water > thisTurret.maxAmmo - thisTurret.ammo)
                     {
                         thisTurret.ammo = thisTurret.maxAmmo;
                         thisplayer.water -= thisTurret.maxAmmo - thisTurret.ammo;
@@ -66,32 +71,27 @@ public class UpgradeSystem : MonoBehaviour {
         }
     }
 
-    IEnumerator NoMoney()
+    void Upgrade()
     {
-        float timer = 2.0f;
-        while (timer > 0)
-        {
-            print("Blah");
-            priceText.text = "Not enough money";
-            titleText.text = "";
-            timer -= 0.1f;
-        }
-       
-        yield return null;
-        //UpdatePrice();
-    }
-
-        void Upgrade()
-    {
-      //  print("Upgrading");
+        //  print("Upgrading");
         thisplayer.money -= cost;
         level++;
         cost *= 2;
         UpdatePrice();
 
-        if(level == 2)
+        if (level == 2)
         {
+            GameObject temp = Instantiate(upgrade1, UpgradeSpot1.position, Quaternion.identity) as GameObject;
+            temp.transform.Rotate(0, 90, 0);
+            temp.transform.parent = UpgradeSpot1;
 
+            thisTurret.Muzzels[1] = temp.transform.Find("Muzzel1");
+            thisTurret.Muzzels[2] = temp.transform.Find("Muzzel2");
+            thisTurret.rof = thisTurret.rof / 3;
+
+        }
+        else
+        {
 
         }
     }
@@ -112,24 +112,24 @@ public class UpgradeSystem : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             UpdatePrice();
             //     StopCoroutine("FadeOut");
             playerPresent = true;
             UpgradeScreen.enabled = true;
-          //  StartCoroutine("FadeIn");
+            //  StartCoroutine("FadeIn");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-           // StopCoroutine("FadeIn");
+            // StopCoroutine("FadeIn");
             playerPresent = false;
             UpgradeScreen.enabled = false;
-           // StartCoroutine("FadeOut");
+            // StartCoroutine("FadeOut");
         }
     }
 }
