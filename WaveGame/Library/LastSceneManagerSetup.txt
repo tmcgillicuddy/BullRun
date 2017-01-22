@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/nis scene.unity
+- path: Assets/Actual Levels/MainLevel.unity
   isLoaded: 1
   isActive: 1
