@@ -92,7 +92,10 @@ public class UpgradeSystem : MonoBehaviour
         }
         else
         {
-
+            GameObject temp = Instantiate(upgrade2, UpgradeSpot2.position, Quaternion.identity) as GameObject;
+           // temp.transform.Rotate(0, 0, 0);
+            temp.transform.parent = UpgradeSpot2;
+            temp.transform.localScale = new Vector3(1,1,1);
         }
     }
     void UpdatePrice()

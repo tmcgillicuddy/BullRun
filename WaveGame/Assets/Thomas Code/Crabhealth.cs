@@ -28,7 +28,14 @@ public class Crabhealth : MonoBehaviour {
         {
             manager.AddScore(type);
             Destroy(this.gameObject);
+           
         }
+    }
+
+    void SpawnWord()
+    {
+        GameObject word = manager.returnWord();
+        Instantiate(word, this.transform.position, Quaternion.identity);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -37,6 +44,11 @@ public class Crabhealth : MonoBehaviour {
         if(collision.gameObject.tag == "Mop")
         {
             takeDamage(10);
+            int test = Random.Range(1, 100);
+            if (test > 80)
+            {
+                SpawnWord();
+            }
         }
     }
 }
