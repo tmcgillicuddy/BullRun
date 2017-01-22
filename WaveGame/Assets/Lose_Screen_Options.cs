@@ -42,7 +42,7 @@ public class Lose_Screen_Options : MonoBehaviour {
     }
     public void RestartLevel()
     {
-
+        SceneManager.LoadSceneAsync("MainLevel");
     }
 
     public void ReturnToMenu()

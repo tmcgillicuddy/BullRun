@@ -55,7 +55,7 @@ public class Crabhealth : MonoBehaviour {
                     mouth.Stop();
                     mouth.clip = manager.returnDeath(type); 
                     mouth.Play();
-                    mouth.volume = .5f;
+                    mouth.volume = .3f;
                     mouth.loop = false;
                     StartCoroutine("waitForCry");
                    

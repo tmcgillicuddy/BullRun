@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour {
 	void Start () {
 		Cursor.visible = false;
 		Cursor.lockState = wantedMode;
-        water = 0;
+        water = 100;
          canMove = true;
 }
 
@@ -62,6 +62,7 @@ public class playerController : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(0))
             {
+                this.GetComponent<AudioSource>().Play();
                 playerAnim.SetBool("Attack", true);
 
             }

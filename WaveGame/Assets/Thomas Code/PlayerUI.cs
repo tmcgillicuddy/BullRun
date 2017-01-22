@@ -8,6 +8,7 @@ public class PlayerUI : MonoBehaviour {
     public enemyManager waveInfo;
     public playerController thisPlayer;
     public Text countDownTimer, scoreCounter, waterText, alertText, moneyText;
+    public Text waterReminder, upgradeTut;
     public Slider waterBar;
 
     public turretAI[] turretStatus;
@@ -58,6 +59,14 @@ public class PlayerUI : MonoBehaviour {
     {
         waterText.text = "Water: " + thisPlayer.water + "/100";
         waterBar.value = thisPlayer.water;
+        if(thisPlayer.water < 10)
+        {
+            waterReminder.enabled = true;
+        }
+        else
+        {
+            waterReminder.enabled = false;
+        }
     }
 
     public void UpdateScore()
@@ -82,6 +91,15 @@ public class PlayerUI : MonoBehaviour {
     public void UpdateMoney()
     {
         moneyText.text = "Money: $" + thisPlayer.money.ToString();
+
+        if(thisPlayer.money >=200)
+        {
+            upgradeTut.enabled = true;
+        }
+        else
+        {
+            upgradeTut.enabled = false;
+        }
     }
 
     bool alerting;

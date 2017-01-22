@@ -10,8 +10,9 @@ public class Observer : MonoBehaviour
     public playerController thisPlayer;
     public GameObject[] words;
     public Camera LoseCamera;
-    public AudioClip[] deaths; 
+    public AudioClip[] deaths;
 
+    public int wave;
     public int baseScore, totalScore, waveEnemies, baseMoney;
     public int Red, Blue, Gold, Green, Rainbow, Escaped;
     public int Gentleman;
@@ -20,7 +21,8 @@ public class Observer : MonoBehaviour
     void Start()
     {
         LoseCamera.enabled = false;
-        LoseCamera.GetComponent<AudioListener>().enabled = false;
+
+        winCam.enabled = false;
     }
 
     // Update is called once per frame
@@ -28,6 +30,7 @@ public class Observer : MonoBehaviour
     {
         CheckEscape();
     }
+
     public int wordsAssigned;
     public GameObject returnWord()
     {
@@ -71,7 +74,7 @@ public class Observer : MonoBehaviour
         spawnSystem.FreezeAllUnits();
         for (int i = 0; i < 3; i++)
         {
-            //  thisPlayer.thisUI.turretStatus[i].isFrozen = true;
+              thisPlayer.thisUI.turretStatus[i].isFrozen = true;
         }
 
         thisPlayer.mainCamera.enabled = false;
@@ -80,7 +83,7 @@ public class Observer : MonoBehaviour
         LoseCamera.GetComponent<Lose_Screen_Options>().loseMessage.enabled = true;
         LoseCamera.GetComponent<Lose_Screen_Options>().score.GetComponent<KillTracker>().UpdateKills();
         Destroy(thisPlayer.gameObject);
-        LoseCamera.GetComponent<AudioListener>().enabled = true;
+     
     }
 
     public void AddScore(string type)
@@ -130,7 +133,14 @@ public class Observer : MonoBehaviour
 
             if (waveEnemies == 0)
             {
-                spawnSystem.NextWaveSetup();
+                if (wave != 5)
+                {
+                    spawnSystem.NextWaveSetup();
+                }
+                else
+                {
+                    WinState();
+                }
             }
 
 
@@ -139,6 +149,28 @@ public class Observer : MonoBehaviour
         }
 
         scoreBoard.UpdateKills();
+    }
+
+    public Camera winCam;
+    public void WinState()
+    {
+        
+        thisPlayer.canMove = false;
+        spawnSystem.FreezeAllUnits();
+        for (int i = 0; i < 3; i++)
+        {
+            print(i);
+            thisPlayer.thisUI.turretStatus[i].isFrozen = true;
+        }
+
+        thisPlayer.mainCamera.enabled = false;
+        winCam.enabled = true;
+
+        winCam.GetComponent<WinScreenManager>().winMessage.enabled = true;
+        winCam.GetComponent<WinScreenManager>().score.GetComponent<KillTracker>().UpdateKills();
+        winCam.GetComponent<WinScreenManager>().viewScoreButton.enabled = true;
+
+        Destroy(thisPlayer.gameObject);
     }
 
     public AudioClip returnDeath(string type)

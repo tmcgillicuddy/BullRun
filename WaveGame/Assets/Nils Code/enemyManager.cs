@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemyManager : MonoBehaviour
 {
-
+    public GameObject[] Extras;
     public GameObject red, blue, gold, green, rainbow;
     public int totalSpawn, spawned;
     public bool downTime, spawning;
@@ -62,7 +62,7 @@ public class enemyManager : MonoBehaviour
     {
         downTime = true;
         wave++;
-        totalSpawn = totalSpawn + 100;
+        totalSpawn = totalSpawn + 75;
         spawned = 0;
         timer = waveDownTime;
     }
@@ -77,10 +77,45 @@ public class enemyManager : MonoBehaviour
         {
             child.GetComponent<Crabhealth>().takeDamage(child.GetComponent<Crabhealth>().health);
         }
-        
+
+        god.waveEnemies = 0;
     }
 
-    float height = .3f;
+
+    void AddExtra(GameObject crab)
+    {
+        int i = Random.Range(0, 10);
+
+        if (i > 7)
+        {
+            if (crab.GetComponent<Crabhealth>().type == "Blue")
+            {
+                i = Random.Range(0, Extras.Length - 1);
+
+                GameObject temp = Instantiate(Extras[i], crab.transform.position, Quaternion.identity) as GameObject;
+                temp.transform.parent = crab.transform;
+                temp.transform.localScale = new Vector3(1, 1, 1);
+                if (i != 0)
+                {
+                    foreach (Transform child in temp.transform)
+                    {
+                        child.transform.position += new Vector3(0, -1, 0);
+                    }
+                }
+                
+            }
+            else
+            {
+                i = Random.Range(0, Extras.Length - 1);
+
+                GameObject temp = Instantiate(Extras[i], crab.transform.position, Quaternion.identity) as GameObject;
+                temp.transform.parent = crab.transform;
+                temp.transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+    }
+
+   public float height = .3f;
 
     void SpawnWave()
     {
@@ -96,6 +131,9 @@ public class enemyManager : MonoBehaviour
                         {
                             GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
+                            AddExtra(temp);
+
+
                             spawned++;
                         }
                         else
@@ -108,103 +146,145 @@ public class enemyManager : MonoBehaviour
                 {
                     for (int i = 0; i < spawnPoints.Count; i++)
                     {
-                        if (spawned % 5 == 0)
+                        if (spawned < totalSpawn)
                         {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
+                            if (spawned % 5 == 0)
+                            {
+                                GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height * 3, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else
+                            {
+                                GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            spawned++;
                         }
                         else
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
+                            break;
                         }
-                        spawned++;
                     }
                 }
                 else if (wave == 3)
                 {
                     for (int i = 0; i < spawnPoints.Count; i++)
                     {
-                        if (spawned % 10 == 0)
+                        if (spawned < totalSpawn)
                         {
-                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
-                        }
-                        else if (spawned % 5 == 0)
-                        {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
+                            if (spawned % 100 == 0)
+                            {
+                                GameObject temp = Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            if (spawned % 10 == 0)
+                            {
+                                GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else if (spawned % 5 == 0)
+                            {
+                                GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height * 3, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else
+                            {
+                                GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+
+                            }
+                            spawned++;
                         }
                         else
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
-
+                            break;
                         }
-                        spawned++;
                     }
                 }
                 else if (wave == 4)
                 {
+                    god.wave = 4;
                     for (int i = 0; i < spawnPoints.Count; i++)
                     {
+                        if (spawned < totalSpawn)
+                        {
+                            if (spawned % 25 == 0 && totalSpawn-spawned >=5)
+                            {
+                                SpawnHeli();
+                                spawned += 4;
+                            }
+                            else if (spawned % 10 == 0)
+                            {
+                                GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else if (spawned % 5 == 0)
+                            {
+                                GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height * 3, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else
+                            {
+                                GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
 
-                        if (spawned % 25 == 0)
-                        {
-                            SpawnHeli();
-                            spawned += 4;
-                        }
-                        else if (spawned % 10 == 0)
-                        {
-                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
-                        }
-                        else if (spawned % 5 == 0)
-                        {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
+                            spawned++;
                         }
                         else
                         {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
+                            break;
                         }
-
-                        spawned++;
                     }
                 }
                 else if (wave == 5)
                 {
+                    god.wave = 5;
                     for (int i = 0; i < spawnPoints.Count; i++)
                     {
-                        spawned++;
-                        if (spawned % 100 == 0)
+                        if (spawned < totalSpawn)
                         {
-                            GameObject temp = Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
-                        }
-                        else if (spawned % 25 == 0)
-                        {
-                            SpawnHeli();
-                            spawned += 4;
-                        }
-                        else if (spawned % 10 == 0)
-                        {
-                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
-                        }
-                        else if (spawned % 5 == 0)
-                        {
-                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
-                        }
-                        else
-                        {
-                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
-                            temp.transform.parent = spawnParent;
-                        }
-                        spawned++;
 
+                            if (spawned % 100 == 0)
+                            {
+                                GameObject temp = Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else if (spawned % 25 == 0 && totalSpawn - spawned >= 5)
+                            {
+                                SpawnHeli();
+                                spawned += 4;
+                            }
+                            else if (spawned % 10 == 0)
+                            {
+                                GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else if (spawned % 5 == 0)
+                            {
+                                GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height * 3, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            else
+                            {
+                                GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), height, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                                temp.transform.parent = spawnParent;
+                                AddExtra(temp);
+                            }
+                            spawned++;
+                        }
                     }
                 }
             }

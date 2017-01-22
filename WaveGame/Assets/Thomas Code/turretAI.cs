@@ -11,11 +11,14 @@ public class turretAI : MonoBehaviour
     public int ammo, maxAmmo;
     public float bulletSpeed;
     public int bulletDamage;
+    public TurretSoundManager pews;
+    public AudioSource sound;
 
     public int currentLevel;
     // Use this for initialization
     void Start()
     {
+        sound = this.GetComponent<AudioSource>();
         isFrozen = false;
     }
 
@@ -67,6 +70,10 @@ public class turretAI : MonoBehaviour
                 temp.GetComponent<Bullet>().damage = bulletDamage;
                 temp.GetComponent<Rigidbody>().velocity = temp.transform.forward * bulletSpeed;
             }
+            sound.clip = pews.returnPew();
+            sound.Play();
+
+
             ammo--;
         }
         else

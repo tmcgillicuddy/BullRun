@@ -32,7 +32,7 @@ public class enemyMovement : MonoBehaviour {
 		if (target != null) 
 		{
 			transform.LookAt(target);
-			transform.Rotate (0, 90, 270);
+			transform.Rotate (0, 90, 90);
 		}
 	}
 }
