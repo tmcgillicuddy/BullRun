@@ -155,9 +155,10 @@ public class enemyManager : MonoBehaviour {
                 {
                     for (int i = 0; i < spawnPoints.Count; i++)
                     {
-                        spawned++;
+                       // spawned++;
                         if (spawned % 100 == 0)
                         {
+                            print("Spawned Rainbow");
                             GameObject temp = Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
                             temp.transform.parent = spawnParent;
                         }

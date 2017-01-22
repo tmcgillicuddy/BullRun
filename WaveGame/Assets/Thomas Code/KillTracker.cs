@@ -23,9 +23,9 @@ public class KillTracker : MonoBehaviour {
     {
         ColorNums[0].text = god.Red.ToString();
         ColorNums[1].text = god.Blue.ToString();
-        ColorNums[2].text = god.Blue.ToString();
-        ColorNums[3].text = god.Blue.ToString();
-
+        ColorNums[2].text = god.Gold.ToString();
+        ColorNums[3].text = god.Green.ToString();
+        ColorNums[4].text = god.Rainbow.ToString();
 
         TypeNums[0].text = god.Gentleman.ToString();
         TypeNums[1].text = god.Gentleman.ToString();
