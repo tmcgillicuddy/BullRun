@@ -59,7 +59,7 @@ public class enemyManager : MonoBehaviour {
                 {
                     for (int i = 0; i < spawnPoints.Count; i++)
                     {
-                        Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                        Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         spawned++;
                     }
                 }
@@ -69,11 +69,11 @@ public class enemyManager : MonoBehaviour {
                     {
                         if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         spawned++;
                     }
@@ -84,18 +84,18 @@ public class enemyManager : MonoBehaviour {
                     {
                         if (spawned % 10 == 0)
                         {
-                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
-                        }
+                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
 
-                        spawned++;
+                            spawned++;
+                        }
                     }
                 }
                 else if (wave == 4)
@@ -105,19 +105,19 @@ public class enemyManager : MonoBehaviour {
 
                         if (spawned % 25 == 0)
                         {
-                            Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else if (spawned % 10 == 0)
                         {
-                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
 
                         spawned++;
@@ -130,23 +130,23 @@ public class enemyManager : MonoBehaviour {
                         spawned++;
                         if (spawned % 100 == 0)
                         {
-                            Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else if (spawned % 25 == 0)
                         {
-                            Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else if (spawned % 10 == 0)
                         {
-                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-3.0f, 3.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
                         }
                         
                     }
