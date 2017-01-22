@@ -11,7 +11,7 @@ public class UpgradeSystem : MonoBehaviour
     public Text priceText, titleText;
     public playerController thisplayer;
     public Image Panel;
-
+    public Text ammoAmount;
     public Transform UpgradeSpot1, UpgradeSpot2;
 
     public GameObject upgrade1, upgrade2;
@@ -30,10 +30,14 @@ public class UpgradeSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //  UpdatePrice();
+        UpdateAmmo();
         CheckPurchase();
     }
 
+    void UpdateAmmo()
+    {
+        ammoAmount.text = "Ammo: " + thisTurret.ammo;
+    }
 
     void CheckPurchase()
     {
@@ -47,7 +51,7 @@ public class UpgradeSystem : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine("NoMoney");
+                    thisplayer.thisUI.FlashMessage("Not Enough Money");
                     // UpdatePrice();
                 }
             }
@@ -58,15 +62,23 @@ public class UpgradeSystem : MonoBehaviour
                 {
                     if (thisplayer.water > thisTurret.maxAmmo - thisTurret.ammo)
                     {
-                        thisTurret.ammo = thisTurret.maxAmmo;
                         thisplayer.water -= thisTurret.maxAmmo - thisTurret.ammo;
+                        thisTurret.ammo = thisTurret.maxAmmo;
+                        
+                       
                     }
                     else
                     {
-                        thisplayer.water = 0;
                         thisTurret.ammo += thisplayer.water;
+                        thisplayer.water = 0;
+                        
                     }
                 }
+                else
+                {
+                    thisplayer.thisUI.FlashMessage("Refill Bucket at Sink");
+                }
+                thisplayer.thisUI.UpdateSlider();
             }
         }
     }
@@ -87,8 +99,13 @@ public class UpgradeSystem : MonoBehaviour
 
             thisTurret.Muzzels[1] = temp.transform.Find("Muzzel1");
             thisTurret.Muzzels[2] = temp.transform.Find("Muzzel2");
+
             thisTurret.rof = thisTurret.rof / 3;
 
+            thisTurret.currentLevel++;
+
+            thisTurret.maxAmmo = 100;
+            thisTurret.ammo = thisTurret.maxAmmo;
         }
         else
         {
@@ -96,6 +113,11 @@ public class UpgradeSystem : MonoBehaviour
            // temp.transform.Rotate(0, 0, 0);
             temp.transform.parent = UpgradeSpot2;
             temp.transform.localScale = new Vector3(1,1,1);
+
+            thisTurret.currentLevel++;
+
+            thisTurret.maxAmmo = 200;
+            thisTurret.ammo = thisTurret.maxAmmo;
         }
     }
     void UpdatePrice()

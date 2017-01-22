@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
     public int damage;
+    public string type;
+    int hitCounter;
 	// Use this for initialization
 	void Start () {
-		
+        hitCounter = 0;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +24,18 @@ public class Bullet : MonoBehaviour {
             collision.gameObject.GetComponent<Crabhealth>().takeDamage(damage);
           
         }
+        if (type != "Puck")
+        {
 
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            hitCounter++;
+            if(hitCounter ==3)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

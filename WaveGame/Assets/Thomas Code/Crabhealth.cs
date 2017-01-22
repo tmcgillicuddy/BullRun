@@ -7,6 +7,8 @@ public class Crabhealth : MonoBehaviour {
     public Observer manager;
     public string type;
     public string attachment;
+    public enemyMovement stuff;
+   public  GameObject paraChute;
 	// Use this for initialization
 	void Start () {
 		
@@ -41,13 +43,29 @@ public class Crabhealth : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         //print("Hit something");
-        if(collision.gameObject.tag == "Mop")
+        if(collision.gameObject.tag == "AttackMop")
         {
             takeDamage(10);
             int test = Random.Range(1, 100);
             if (test > 80)
             {
                 SpawnWord();
+            }
+        }
+
+        if(collision.gameObject.tag == "Back Wall")
+        {
+            type = "Escaped";
+            takeDamage(health);
+        }
+
+        if(collision.gameObject.tag == "Ground")
+        {
+            if (type == "Green")
+            {
+                GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                stuff.canMove = true;
+                Destroy(paraChute);
             }
         }
     }

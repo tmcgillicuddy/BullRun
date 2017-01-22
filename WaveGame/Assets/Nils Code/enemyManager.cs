@@ -30,6 +30,14 @@ public class enemyManager : MonoBehaviour {
             KillUnits();
         }
     }
+       
+    public void FreezeAllUnits()
+    {
+        foreach(Transform child in spawnParent)
+        {
+            child.GetComponent<enemyMovement>().canMove = false;
+        }
+    }
 
     public float timer;
     void CountDown()
@@ -52,7 +60,7 @@ public class enemyManager : MonoBehaviour {
     {
         downTime = true;
         wave++;
-        totalSpawn += 150;
+        totalSpawn += 50;
         spawned = 0;
         timer = 2f;
     }
