@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour {
     public float speed, mouseSpeed;
-	public GameObject wall1, wall2, wall3, wall4;
     public Camera mainCamera;
     CursorLockMode wantedMode = CursorLockMode.Locked;
 
@@ -22,7 +21,6 @@ public class playerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		getInput ();	
-		keepInBounds ();
 	}
 
 	void getInput()
@@ -59,26 +57,8 @@ public class playerController : MonoBehaviour {
             
         }
 
-    }
 
-	void keepInBounds()
-	{
-		if (this.transform.position.x > wall1.transform.position.x - 2) 
-		{
-			this.transform.position = new Vector3 (wall1.transform.position.x - 2, this.transform.position.y, this.transform.position.z);
-		}
-		if (this.transform.position.x < wall2.transform.position.x + 2) 
-		{
-			this.transform.position = new Vector3 (wall2.transform.position.x + 2, this.transform.position.y, this.transform.position.z);
-		}
-		if (this.transform.position.z > wall3.transform.position.z - 2) 
-		{
-			this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y, wall3.transform.position.z - 2);
-		}
-		if (this.transform.position.z < wall4.transform.position.z + 2) 
-		{
-			this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y, wall4.transform.position.z + 2);
-		}
-	}
+
+    }
 
 }
