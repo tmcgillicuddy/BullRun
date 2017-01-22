@@ -34,7 +34,7 @@ public class UpgradeSystem : MonoBehaviour {
     {
         if(playerPresent)
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKeyDown(KeyCode.E) && level < 3)
             {
                 if(thisplayer.money >= cost)
                 {
@@ -88,12 +88,26 @@ public class UpgradeSystem : MonoBehaviour {
         level++;
         cost *= 2;
         UpdatePrice();
+
+        if(level == 2)
+        {
+
+
+        }
     }
     void UpdatePrice()
     {
-      //  print("UpdatePrice");
-        titleText.text = "Turret Level " + level;
-        priceText.text = "Upgrade: $" + cost;
+        //  print("UpdatePrice");
+        if (level < 3)
+        {
+            titleText.text = "Turret Level " + level;
+            priceText.text = "Upgrade: $" + cost;
+        }
+        else
+        {
+            titleText.text = "Max Upgrade";
+            priceText.text = "";
+        }
     }
 
     private void OnTriggerEnter(Collider other)
