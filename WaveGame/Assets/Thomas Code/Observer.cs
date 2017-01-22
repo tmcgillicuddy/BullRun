@@ -6,6 +6,7 @@ public class Observer : MonoBehaviour {
     public int baseScore, totalScore, waveEnemies;
     public enemyManager spawnSystem;
     public KillTracker scoreBoard;
+    public PlayerUI thisPlayer;
 
     public int Red, Blue;
 
@@ -66,6 +67,8 @@ public class Observer : MonoBehaviour {
             print("No more bad guys");
             spawnSystem.downTime = true;
         }
+
+        thisPlayer.UpdateScore();
     }
 
     public void DeathTracker(string attachtment)
