@@ -50,11 +50,11 @@ public class Observer : MonoBehaviour {
         {
             totalScore += (int)(baseScore * 1.5f);
         }
-        else if (type == "Blue")
+        else if (type == "Gold")
         {
             totalScore += baseScore * 3;
         }
-        else if (type == "Blue")
+        else if (type == "Rainbow")
         {
             totalScore += baseScore * 10;
         }
@@ -65,7 +65,7 @@ public class Observer : MonoBehaviour {
         if(waveEnemies == 0)
         {
             print("No more bad guys");
-            spawnSystem.downTime = true;
+            spawnSystem.NextWaveSetup();
         }
 
         thisPlayer.UpdateScore();

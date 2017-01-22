@@ -10,6 +10,7 @@ public class enemyManager : MonoBehaviour {
     public bool downTime, spawning;
 	private int wave = 0;
     public List<Transform> spawnPoints;
+    public Transform spawnParent;
 
     public Observer god;
 
@@ -23,6 +24,10 @@ public class enemyManager : MonoBehaviour {
     {
         CountDown();
         SpawnWave();
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            KillUnits();
+        }
     }
 
     public float timer;
@@ -46,9 +51,22 @@ public class enemyManager : MonoBehaviour {
     {
         downTime = true;
         wave++;
+        totalSpawn += 150;
+        spawned = 0;
         timer = 2f;
     }
 
+
+
+    void KillUnits()
+    {
+        foreach(Transform child in spawnParent)
+        {
+            child.GetComponent<Crabhealth>().takeDamage(child.GetComponent<Crabhealth>().health);
+        }
+    }
+
+    int inGame;
     void SpawnWave()
     {
         if (spawning == true)
@@ -59,7 +77,8 @@ public class enemyManager : MonoBehaviour {
                 {
                     for (int i = 0; i < spawnPoints.Count; i++)
                     {
-                        Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                      GameObject temp=  Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                        temp.transform.parent = spawnParent;
                         spawned++;
                     }
                 }
@@ -69,11 +88,13 @@ public class enemyManager : MonoBehaviour {
                     {
                         if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         spawned++;
                     }
@@ -84,18 +105,21 @@ public class enemyManager : MonoBehaviour {
                     {
                         if (spawned % 10 == 0)
                         {
-                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
-
-                            spawned++;
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
+                           
                         }
+                        spawned++;
                     }
                 }
                 else if (wave == 4)
@@ -105,19 +129,23 @@ public class enemyManager : MonoBehaviour {
 
                         if (spawned % 25 == 0)
                         {
-                            Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 10 == 0)
                         {
-                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
 
                         spawned++;
@@ -130,25 +158,31 @@ public class enemyManager : MonoBehaviour {
                         spawned++;
                         if (spawned % 100 == 0)
                         {
-                            Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(rainbow, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 25 == 0)
                         {
-                            Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(green, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 10 == 0)
                         {
-                            Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(gold, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else if (spawned % 5 == 0)
                         {
-                            Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(blue, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
                         else
                         {
-                            Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity);
+                            GameObject temp = Instantiate(red, spawnPoints[i].position + new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(0.0f, 25.0f)), Quaternion.identity) as GameObject;
+                            temp.transform.parent = spawnParent;
                         }
-                        
+                        spawned++;
+
                     }
                 }
             }
