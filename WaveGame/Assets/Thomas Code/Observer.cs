@@ -2,33 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Observer : MonoBehaviour {
+public class Observer : MonoBehaviour
+{
 
     public enemyManager spawnSystem;
     public KillTracker scoreBoard;
     public playerController thisPlayer;
     public GameObject[] words;
     public Camera LoseCamera;
-
+    public AudioClip[] deaths; 
 
     public int baseScore, totalScore, waveEnemies, baseMoney;
-    public int Red, Blue, Gold, Green, Rainbow;
+    public int Red, Blue, Gold, Green, Rainbow, Escaped;
     public int Gentleman;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         LoseCamera.enabled = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        LoseCamera.GetComponent<AudioListener>().enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         CheckEscape();
-	}
+    }
     public int wordsAssigned;
-  public GameObject returnWord()
+    public GameObject returnWord()
     {
         GameObject temp;
-        switch(wordsAssigned%3)
+        switch (wordsAssigned % 3)
         {
             case 0:
                 temp = words[0];
@@ -39,7 +43,7 @@ public class Observer : MonoBehaviour {
 
             default:
                 temp = words[2];
-                    break;
+                break;
 
 
         }
@@ -50,7 +54,7 @@ public class Observer : MonoBehaviour {
 
     void CheckEscape()
     {
-        if(Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
         }
@@ -67,75 +71,123 @@ public class Observer : MonoBehaviour {
         spawnSystem.FreezeAllUnits();
         for (int i = 0; i < 3; i++)
         {
-          //  thisPlayer.thisUI.turretStatus[i].isFrozen = true;
+            //  thisPlayer.thisUI.turretStatus[i].isFrozen = true;
         }
 
         thisPlayer.mainCamera.enabled = false;
         LoseCamera.enabled = true;
 
         LoseCamera.GetComponent<Lose_Screen_Options>().loseMessage.enabled = true;
-
+        LoseCamera.GetComponent<Lose_Screen_Options>().score.GetComponent<KillTracker>().UpdateKills();
         Destroy(thisPlayer.gameObject);
-
+        LoseCamera.GetComponent<AudioListener>().enabled = true;
     }
 
     public void AddScore(string type)
     {
-        if(type == "Red")
+        if (thisPlayer != null)
         {
-            totalScore += baseScore * 1;
-            thisPlayer.money += baseMoney * 1;
-            Red++;
-        }
-        else if (type == "Blue")
-        {
-            totalScore += baseScore * 2;
-            thisPlayer.money += baseMoney * 2;
-            Blue++;
-        }
-        else if (type == "Green")
-        {
-            totalScore += (int)(baseScore * 1.5f);
-            thisPlayer.money += (int)(baseMoney * 1.5f);
-            Green++;
-        }
-        else if (type == "Gold")
-        {
-            totalScore += baseScore * 3;
-            thisPlayer.money += baseMoney * 3;
-            Gold++;
-        }
-        else if (type == "Rainbow")
-        {
-            totalScore += baseScore * 10;
-            thisPlayer.money += baseMoney * 10;
-            Rainbow++;
-        }
-        else if(type == "Escaped")
-        {
-            print("Hit the wall");
-        }
-        else
-        {
-            print("Something else took damage");
-        }
-        waveEnemies--;
-      
+            if (type == "Red")
+            {
+                totalScore += baseScore * 1;
+                thisPlayer.money += baseMoney * 1;
+                Red++;
+            }
+            else if (type == "Blue")
+            {
+                totalScore += baseScore * 2;
+                thisPlayer.money += baseMoney * 2;
+                Blue++;
+            }
+            else if (type == "Green")
+            {
+                totalScore += (int)(baseScore * 1.5f);
+                thisPlayer.money += (int)(baseMoney * 1.5f);
+                Green++;
+            }
+            else if (type == "Gold")
+            {
+                totalScore += baseScore * 3;
+                thisPlayer.money += baseMoney * 3;
+                Gold++;
+            }
+            else if (type == "Rainbow")
+            {
+                totalScore += baseScore * 10;
+                thisPlayer.money += baseMoney * 10;
+                Rainbow++;
+            }
+            else if (type == "Escaped")
+            {
+                Escaped++;
+            }
+            else
+            {
 
-        if(waveEnemies == 0)
-        {
-            print("No more bad guys");
-            spawnSystem.NextWaveSetup();
+            }
+            waveEnemies--;
+
+
+            if (waveEnemies == 0)
+            {
+                spawnSystem.NextWaveSetup();
+            }
+
+
+            thisPlayer.thisUI.UpdateScore();
+            thisPlayer.thisUI.UpdateMoney();
         }
 
-        thisPlayer.thisUI.UpdateScore();
-        thisPlayer.thisUI.UpdateMoney();
         scoreBoard.UpdateKills();
     }
 
+    public AudioClip returnDeath(string type)
+    {
+       
+        if (thisPlayer != null)
+        {
+            AudioClip temp = null;
+            if (type == "Red")
+            {
+              
+                temp = deaths[0];
+            }
+            else if (type == "Blue")
+            {
+                temp = deaths[1];
+            }
+            else if (type == "Green")
+            {
+                temp = deaths[2];
+            }
+            else if (type == "Gold")
+            {
+                temp = deaths[3];
+            }
+            else if (type == "Rainbow")
+            {
+                temp = deaths[4];
+            }
+            else if (type == "Escaped")
+            {
+            
+            }
+            else
+            {
+        
+            }
+          
+            return temp;
+        }
+        else
+        {
+            return null;
+        }
+       
+    }
     public void DeathTracker(string attachtment)
     {
-        if(attachtment == "Gentleman")
+        if (attachtment == "Gentleman")
         {
             Gentleman++;
         }
