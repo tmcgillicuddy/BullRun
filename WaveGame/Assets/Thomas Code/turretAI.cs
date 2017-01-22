@@ -24,11 +24,12 @@ public class turretAI : MonoBehaviour {
     {
         if(target == null)
         {
-            TurretHead.transform.rotation = Quaternion.Euler(0, 0, 0);
+            TurretHead.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         else
         {
             TurretHead.transform.LookAt(target.transform);
+            TurretHead.transform.Rotate(0, 90, 0);
             Fire();
             
         }
